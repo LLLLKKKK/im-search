@@ -1,0 +1,16 @@
+
+message SearchRequest {
+    required string query = 1;
+    optional int32 page_number = 2;
+}
+
+message SearchResponse {
+    repeated group Result = 1 {
+	required string url = 2;
+	optional string title = 3;
+    }
+}
+
+service SearchService {
+    rpc Search
+}

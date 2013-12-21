@@ -1,0 +1,76 @@
+
+// SearchService implementation.
+class SearchServiceImpl : public SearchService
+{
+private:
+
+    void printRequest(RpcController* controller, const google::protobuf::Message * request)
+    {
+        std::cout << "************************" << std::endl;
+        std::cout << "*** Received request ***" << std::endl;
+
+        RcfProtoController * rcfController = static_cast<RcfProtoController *>(controller);
+        RcfProtoSession * pSession = rcfController->getSession();
+
+        std::cout << "Client username: "        << RCF::toAstring(pSession->getClientUsername())                    << std::endl;
+        std::cout << "Compression enabled: "    << pSession->getEnableCompression()                                 << std::endl;
+        std::cout << "Transport type: "         << RCF::getTransportTypeName(pSession->getTransportType())          << std::endl;
+        std::cout << "Transport protocol: "     << RCF::getTransportProtocolName(pSession->getTransportProtocol())  << std::endl;
+
+        std::string strRequest;
+        TextFormat::PrintToString(*request, &strRequest);
+        std::cout << "Request: " << std::endl;
+        std::cout << strRequest << std::endl;
+    }
+
+    void printResponse(google::protobuf::Message * response)
+    {
+        std::cout << "*** Sending response ***" << std::endl;
+        std::string strResponse;
+        TextFormat::PrintToString(*response, &strResponse);
+        std::cout << strResponse << std::endl;
+        std::cout << "************************" << std::endl;
+    }
+
+public:
+
+    void Search(
+        RpcController *                 controller,
+        const SearchRequest *           request,
+        SearchResponse *                response,
+        Closure *                       done)
+    {
+        printRequest(controller, request);
+
+        // Fill in the response.
+        SearchResponse_Result * result = response->add_result();
+        result->set_title("First result");
+        result->set_url("http://acme.org/");
+        result->add_snippets("A snippet from acme.org.");
+
+        result = response->add_result();
+        result->set_title("Second result");
+        result->set_url("http://acme.org/abc");
+        result->add_snippets("Another snippet from acme.org.");
+
+        printResponse(response);
+
+        // We're done.
+        done->Run();
+    }
+
+    static volatile bool gShutdownServer;
+
+    void ShutdownServer(
+        RpcController *                 controller,
+        const ShutdownServerRequest *   request,
+        ShutdownServerResponse *        response,
+        Closure *                       done)
+    {
+        printRequest(controller, request);
+
+        gShutdownServer = true;
+        done->Run();
+    }
+
+};
