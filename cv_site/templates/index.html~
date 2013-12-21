@@ -1,0 +1,13 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+  <head>
+    <title>Let's get started</title>
+  </head>
+  <body>
+    <form name="search" enctype="multipart/form-data" method="POST" action="/search">
+      <input type="file" name="image" />
+      <input type="submit" value="SEARCH!" />
+    </form>
+    <p>Thanks for visiting.</p>
+  </body>
+</html>

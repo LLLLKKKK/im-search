@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{%static "favicon.ico" %}" />
+    <link rel="stylesheet" type="text/css" href="{%static "css/bootstrap.min.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{%static "css/style.css" %}" />
+    <title>Let's get started</title>
+  </head>
+  <body>
+    <div id="carousel-container" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+	<li data-target="#carousel-container" data-slide-to="0" class="active"></li>
+	<li data-target="#carousel-container" data-slide-to="1"></li>
+	<li data-target="#carousel-container" data-slide-to="2"></li>
+      </ol>
+      
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+	<div class="item active">
+	  <img data-src="holder.js/900x650/auto/#777:#333/text:Food Search" />
+	  <div class="container">
+	    <pre>Thanks for visiting.</pre>
+	    <div class="container col-md-4 col-centered">
+	      <form id="search" name="search" enctype="multipart/form-data" method="POST" action="/search" role="form">
+	    	<input type="file" name="image" style="display:none;" />
+		<input type="submit" style="display:none;"/>
+	    	<button class="btn btn-lg btn-primary btn-block">Let's start!</button>
+	      </form>
+	    </div>
+	  </div>
+	  <div class="carousel-caption">
+	    <h1>......</h1>
+	    <p>A definite good guide to chihuo.</p>
+	  </div>
+	</div>
+	
+	<div class="item">
+	  <img data-src="holder.js/900x650/auto/#777:#333/text:And ..." />
+	</div>
+	
+	<div class="item">
+	  <img data-src="holder.js/900x650/auto/#777:#333/text:More !" />
+	</div>
+      </div>
+      
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-container" data-slide="prev">
+	<span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel-container" data-slide="next">
+	<span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
+    </div>
+
+    <script src="{%static "js/jquery-1.10.2.min.js" %}"></script>
+    <script src="{%static "js/bootstrap.min.js" %}"></script>
+    <script src="{%static "js/holder.js" %}"></script>
+  </body>
+</html>
