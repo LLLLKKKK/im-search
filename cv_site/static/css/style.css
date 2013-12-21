@@ -9,7 +9,7 @@
 }
 
 .carousel .item {
-    height: 650px;
+    height: 400px;
     background-color: #777;
 }
 
@@ -18,9 +18,32 @@
     top: 0;
     left: 0;
     min-width: 100%;
-    min-height: 100%;
+    height: 400px;
 }
 
 #search {
     margin-top : 400px;
+}
+
+#image-container {
+    padding : 20px 0px 20px 0px;
+    margin : 0px;
+    width : 100%;
+}
+
+.result-image {
+    width : auto;
+    padding : 5px;
+    margin : 2px;
+    height : 200px;
+    background-color : #ccc;
+    border-radius : 5px;
+}
+
+div.loader {
+    font-style: italic;
+    text-align: center;
+    margin: 20px;
+    height: 24px;
+    background: url(../loader.gif) no-repeat center center;
 }
