@@ -1,24 +1,22 @@
 
-class SearchServiceImpl : public SearchService
+#include <iostream>
+#include "SearchServiceImpl.h"
+
+using namespace google::protobuf;
+
+void SearchServiceImpl::Search(RpcController *controller, const SearchRequest *request, 
+                               SearchResponse *response, Closure *done)
 {
-public:
-    
-    void Search(RpcController *controller, const SearchRequest *request, 
-                SearchResponse *response, Closure *done)
-    {
-        printRequest(controller, request);
+    printRequest(request);
 
-        // Fill in the response.
-        SearchResponse_Result * result = response->add_result();
-        result->set_title("First result");
-        result->set_url("http://acme.org/");
-        result->add_snippets("A snippet from acme.org.");
+    Result * result = response->add_result();
+    result->set_url("aaa.jpg");
+    result->set_title("bbb");
 
-        result = response->add_result();
-        result->set_title("Second result");
-        result->set_url("http://acme.org/abc");
-        result->add_snippets("Another snippet from acme.org.");
+    done->Run();
+}
 
-        done->Run();
-    }
-};
+void SearchServiceImpl::printRequest(const SearchRequest *request) {
+    std::cout << "request: " << request->query() 
+              << " page_num: " << request->page_number() << std::endl;
+}

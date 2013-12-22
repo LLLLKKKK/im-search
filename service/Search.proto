@@ -1,14 +1,19 @@
 
+option cc_generic_services = true;
+option py_generic_services = true;
+
 message SearchRequest {
     required string query = 1;
     optional int32 page_number = 2;
 }
 
+message Result {
+    required string url = 1;
+    optional string title = 2;
+}
+
 message SearchResponse {
-    repeated group Result = 1 {
-	required string url = 2;
-	optional string title = 3;
-    }
+    repeated Result result = 1;
 }
 
 service SearchService {
