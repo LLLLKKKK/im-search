@@ -33,7 +33,10 @@
 		{% csrf_token %}
 	    	<input type="file" name="image" style="display:none;" />
 		<input type="submit" style="display:none;"/>
-	    	<button id="search-btn" class="btn btn-lg btn-primary btn-block">Let's start!</button>
+		<div class="form-group">
+	    	  <button id="search-btn" class="btn btn-lg btn-primary btn-block">Let's start!</button>
+		  <label class="control-label" id="error-label"></label>
+		</div>
 	      </form>
 	    </div>
 	  </div>

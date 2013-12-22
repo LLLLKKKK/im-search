@@ -1,6 +1,7 @@
 
 from deltavsoft.rcfproto import *
 import Search_pb2
+import json
 
 def search(query, page_number):
     init()
@@ -12,7 +13,9 @@ def search(query, page_number):
     request.page_number = 100
     searchService.Search(None, request, None)
     response = channel.GetResponse()
-    for result in response.result:
-        print result.url, result.title
 
-search('sdfsdf', 12)
+    results = []
+    for result in response.result:
+        results.append({ 'url' : result.url, 'title' : result.title})
+
+    return results

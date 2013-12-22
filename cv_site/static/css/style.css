@@ -47,3 +47,7 @@ div.loader {
     height: 24px;
     background: url(../loader.gif) no-repeat center center;
 }
+
+#input-error {
+    font-style: italic;
+}
