@@ -19,5 +19,7 @@ Make sure you have these stuff first ...
  
 ## Build
 
-1. Start SearchService: scons service/ && ./SearchService
-2. Start Django: python manager.py runserver
+1. Install protobuf and RCFProto, Scons .. and so on
+2. Start SearchService: scons service/ && ./SearchServer
+3. Start Django: python manager.py runserver
+4. 127.0.0.1:8000, have fun...
