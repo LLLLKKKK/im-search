@@ -13,10 +13,11 @@ Make sure you have these stuff first ...
 
 1. [Scons](www.scons.org) 
 2. [protobuf](https://code.google.com/p/protobuf/)
-3. [OpenCV](http://opencv.org/)
+3. [RCFProto](http://www.deltavsoft.com/RCFProto.html)
 4. [Django](https://www.djangoproject.com/)
-
+5. [OpenCV](http://opencv.org/)
+ 
 ## Build
 
 1. Start SearchService: scons service/ && ./SearchService
-3. Start Django: python manager.py runserver
+2. Start Django: python manager.py runserver
