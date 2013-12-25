@@ -1,7 +1,7 @@
 
 from deltavsoft.rcfproto import *
-import Search_pb2
 import json
+import Search_pb2
 
 def search(query, page_number):
     init()

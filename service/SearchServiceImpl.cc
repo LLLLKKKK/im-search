@@ -9,6 +9,8 @@ void SearchServiceImpl::Search(RpcController *controller, const SearchRequest *r
 {
     printRequest(request);
 
+    // search ....
+
     Result * result = response->add_result();
     result->set_url("aaa.jpg");
     result->set_title("bbb");

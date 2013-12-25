@@ -20,6 +20,7 @@ env.AlwaysBuild(proto)
 
 env = Environment(CPPPATH = ['../../RCFProto-src-0.9.0.6/cpp/src/RCF/include',
                              '../../RCFProto-src-0.9.0.6/cpp/src/',])
+
 env.Append(CXXFLAGS='-std=c++0x -Wall -O2')
 env.Program(target = target, 
             source = [ sources, proto ],

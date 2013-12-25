@@ -6,6 +6,7 @@ from forms import UploadImageForm
 import json
 import os
 import sys
+import time
 from service import SearchService
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -41,7 +42,8 @@ def render_ajax(request, error=None, result=None):
     return HttpResponse(json.dumps(content))
 
 def handle_uploaded_file(f):
-    filename = BASE_DIR + '/uploads/' + f.name 
+    name, ext = os.path.splitext(f.name)
+    filename = BASE_DIR + '/uploads/' + time.time() + '.' +  ext
     with open(filename, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
