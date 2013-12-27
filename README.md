@@ -1,7 +1,7 @@
 im-search
 =========
 
-Well, repo for the course chuantiyantao .....
+Well, repo for the course zhuantiyantao .....
 
 ## Introduction
 
@@ -11,7 +11,7 @@ A very very simple image search engine .. for food
 
 Make sure you have these stuff first ...
 
-1. [Scons](www.scons.org) 
+1. [Scons](http://www.scons.org) 
 2. [protobuf](https://code.google.com/p/protobuf/)
 3. [RCFProto](http://www.deltavsoft.com/RCFProto.html)
 4. [Django](https://www.djangoproject.com/)
