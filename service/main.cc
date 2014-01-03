@@ -11,6 +11,10 @@ int main(int argc, char** argv) {
     RcfProtoServer server;    
     SearchServiceImpl searchServiceImpl;
 
+    if (!searchServiceImpl.init()) {
+        return -1;
+    }
+
     server.bindService(searchServiceImpl);    
     server.addEndpoint(RCF::TcpEndpoint(50001));
     

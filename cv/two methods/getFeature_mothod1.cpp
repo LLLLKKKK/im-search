@@ -17,6 +17,3 @@ int main(){
     cout<<"opencv...hehe"<<endl;
     return 0;
 }
-
-
-

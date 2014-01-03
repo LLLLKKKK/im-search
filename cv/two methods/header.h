@@ -1,11 +1,7 @@
-#include "highgui.h"
-#include "features2d.hpp"
-#include "cxcore.h"
-#include "cv.h"
 #include <iostream>
-#include "nonfree/features2d.hpp"
 #include <stdio.h>
-#include<string>
+#include <string>
+#include <opencv2/opencv.hpp>
 using namespace std;
 using namespace cv;
 #define IMAGE_NUM 9
@@ -23,12 +19,7 @@ public:
     char s_imge_filename[20] ;
 };
 Mat queryMat;
-Mat Hist1(1,256,CV_32F);
-Mat Hist2(1,256,CV_32F);
-//Mat forSift(1,1280,CV_32F);
-//Mat forAll(1,1536,CV_32F);
-int H[1000][1000],S[1000][1000], V[1000][1000],L[1000][1000];
-//char *fileName[5]{"2.jpg","1.jpg","3.jpg","4.jpg","5.jpg"};
+
 void checkHSV(double h, double s, double v,int i, int j,Mat& Hist);
 double Eudist(Mat oneSift, Mat oneCenter){
     double dist=0;
@@ -38,27 +29,17 @@ double Eudist(Mat oneSift, Mat oneCenter){
     return dist;
 }
 
-void colorHist(Mat& matTotalDesc){
-    
-    
-    for(int k=0;k<IMAGE_NUM;k++){
-        char fileName[20]="./food_2/";
-        char num[5];
-        sprintf(num,"%d",k);
-        strcat(fileName,num);
-        strcat(fileName,".jpg");
-        cout<<fileName<<endl;
-        
-        IplImage* src=cvLoadImage(fileName);
+Mat colorHist(const std::vector<std::string>& filenames) {
+    Mat matTotalDesc;
+    for(auto &filename : filenames) {
+        IplImage* src=cvLoadImage(filename.c_str());
         IplImage* hsv=cvCreateImage(cvGetSize(src), 8, 3);
         Mat Hist=Mat::zeros(1,256,CV_32F);
         cvCvtColor( src, hsv, CV_BGR2HSV );
-        
-        
-        
+
         double h,s,v;
         float pix_sum=src->height*src->width;
-        // int count=0;
+
         for(int i=0;i<src->height;i++){
             for(int j=0;j<src->width;j++){
                 h=cvGet2D(hsv,i,j).val[0]*2;
@@ -66,26 +47,20 @@ void colorHist(Mat& matTotalDesc){
                 v=cvGet2D(hsv,i,j).val[2]/255;
                 checkHSV(h,s,v,i,j,Hist);
             }
-            
+
         }
-        
-        if(k==1)
-            Hist1=Hist;
-        if(k==2)
-            Hist2=Hist;
         Hist=Hist/pix_sum;
-        
-        matTotalDesc.push_back(Hist);   //拼接颜色向量到一个矩阵里
-        
-        
+        matTotalDesc.push_back(Hist);
     }
-    
+
+    return matTotalDesc;
 }
+
 void imageRetrival(cv::flann::Index& m_index, const string query_image_name){
     clock_t start,end;
     start=clock();
     Mat QueryHist;
-    Mat QueryMatDesc;
+    Mat QueryMabtDesc;
     Mat indices;
     Mat dists;
    
@@ -171,6 +146,7 @@ void getSift_method1(Mat& matTotalDesc,vector<matDescToImgfile_method1>& vec_Des
         //  cout<<matTotalDesc.rows<<"   "<<matTotalDesc.cols<<endl;
     }
 }
+
 
 Mat getSift_method2(Mat& matTotalSift,vector<matDescToImgfile_method2>& vec_Desc_Imgfile){
     matDescToImgfile_method2 one_img_log ;
@@ -294,60 +270,5 @@ void buildAllMat_method1(Mat& matTotalColor,Mat& matTotalSift,Mat& matTotalDesc)
     fs.release();
 }
 
-void checkHSV(double h, double s, double v,int i, int j,Mat &Hist){
-    if(h<=15||h>345)
-        H[i][j]=0;
-    else if(h<=25&&h>15)
-        H[i][j]=1 ;
-    else if(h<=45&&h>25)
-        H[i][j]=2 ;
-    else if(h<=55&&h>45)
-        H[i][j]=3 ;
-    else if(h<=80&&h>55)
-        H[i][j]=4 ;
-    else if(h<=108&&h>80)
-        H[i][j]=5 ;
-    else if(h<=140&&h>108)
-        H[i][j]=6 ;
-    else if(h<=165&&h>140)
-        H[i][j]= 7;
-    else if(h<=190&&h>165)
-        H[i][j]= 8;
-    else if(h<=220&&h>190)
-        H[i][j]=9 ;
-    else if(h<=255&&h>220)
-        H[i][j]=10 ;
-    else if(h<=275&&h>255)
-        H[i][j]=11 ;
-    else if(h<=290&&h>275)
-        H[i][j]=12 ;
-    else if(h<=316&&h>290)
-        H[i][j]=13 ;
-    else if(h<=330&&h>316)
-        H[i][j]=14 ;
-    else if(h<=345&&h>330)
-        H[i][j]=15 ;
-    
-    if(s<=0.15&&s>0)
-        S[i][j]=0;
-    else if(s<=0.4&&s>0.15)
-        S[i][j]=1;
-    else if(s<=0.75&&s>0.4)
-        S[i][j]=2;
-    else if(s<=1&&s>0.75)
-        S[i][j]=3;
-    
-    if(v<=0.15&&v>0)
-        V[i][j]=0;
-    else if(v<=0.4&&v>0.15)
-        V[i][j]=1;
-    else if(v<=0.75&&v>0.4)
-        V[i][j]=2;
-    else if(v<=1&&v>0.75)
-        V[i][j]=3;
-    L[i][j]=H[i][j]*16+S[i][j]*4+V[i][j];
-    Hist.at<float>(0,L[i][j])=Hist.at<float>(0,L[i][j])+1;
-    
-}
 
 
