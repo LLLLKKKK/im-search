@@ -1,16 +1,18 @@
 # -*-Python-*-
 
-target =  'Build'
+target = 'Build'
 
 sources	 =  [
-    'Build.cc',
     'main.cc',
     ]
 
 env = Environment()
 
-env.Append(CXXFLAGS='-std=c++0x -Wall -O2')
+env.Append(CXXFLAGS = '-std=c++0x -Wall -O2',
+           CPPPATH = '..',
+           LIBS = 'CV',
+           LIBPATH = '../cv',)
+
 env.ParseConfig('pkg-config --cflags --libs opencv')
-env.Append(CXXFLAGS='-std=c++0x -g -Wall -O0')
 env.Program(target = target,
             source = sources,)

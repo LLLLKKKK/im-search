@@ -9,8 +9,8 @@ def search(query, page_number):
     channel         = RcfProtoChannel(tcpEndpoint)
     searchService   = Search_pb2.SearchService_Stub(channel)
     request         = Search_pb2.SearchRequest()
-    request.query = 'enen.jpg'
-    request.page_number = 100
+    request.query = query
+    request.page_number = 0
     searchService.Search(None, request, None)
     response = channel.GetResponse()
 

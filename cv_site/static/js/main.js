@@ -5,6 +5,7 @@ var image_input = $('#search-form input[type="file"]');
 var csrf_input = $('#search-form input[name="csrfmiddlewaretoken"]');
 var search_btn = $('#search-btn');
 var error_label = $('#error-label');
+var image_container = $('#image-container');
 
 image_input.change(function(e) {
 	formdata = new FormData();
@@ -31,6 +32,15 @@ image_input.change(function(e) {
 			error_label.text('');
 		if (msg['result']) {
 			console.log(msg['result']);
+			results = msg['result'];
+			var markup='';
+			if (results) {
+			    for (var i=0; i< results.length; i++){
+				var src = 'static/image/' + results[i]['url'] + '.jpg';
+				markup+='<a href="' + src + '"><img class="result-image" src="'+ src +'" /></a>';
+			    }
+			}
+			image_container.html(markup);
 		}
 	});
 });
@@ -39,23 +49,3 @@ search_btn.click(function(e) {
 	e.preventDefault();
 	image_input.click();
     });
-
-
-$("#image-container").autobrowse({
-	url: function (offset){
-		return "http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format=json&jsoncallback=?";
-	},
-	template: function (response) {
-		var markup='';
-		for (var i=0; i<response.items.length; i++){
-			markup+='<a href="'+response.items[i].link+'"><img class="result-image" src="'+response.items[i].media.m+'" /></a>';
-		}
-		return markup;
-	},
-	loader: '<div class="loader"></div>',
-	itemsReturned: function (response) { return response.items.length; },
-	offset: 0,
-	max: 100,
-	useCache: false,
-	expiration: 1
-});

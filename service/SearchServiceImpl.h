@@ -4,20 +4,26 @@
 
 #include "Search.pb.h"
 
-class cv::flann::Index;
+namespace cv {
+namespace flann {
+class Index;
+};
+};
 
-class SearchServiceImpl : public SearchService
-{
+class SearchServiceImpl : public SearchService {
+public:
+    bool init();
+
 public:
     void Search(google::protobuf::RpcController *controller,
                 const  SearchRequest *request, SearchResponse *response,  
                 google::protobuf::Closure *done);
-private:
-    void printRequest(const SearchRequest *request);
-    bool init();
 
 private:
-    cv::flann::Index index;
+    void doSearch(const std::string& imageName, SearchResponse *response);
+    void printRequest(const SearchRequest *request);
+private:
+    cv::flann::Index *index_;
 };
 
 #endif

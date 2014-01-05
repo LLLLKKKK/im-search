@@ -8,6 +8,7 @@ sources	 =  [
     ]
 
 LIBS = [
+    'CV',
     'pthread',
     'RCFProto',
     ]
@@ -19,9 +20,12 @@ proto = env.Command(target = 'Search.pb.cc',
 env.AlwaysBuild(proto)
 
 env = Environment(CPPPATH = ['../RCFProto-src-0.9.0.6/cpp/src/',
-                             '../RCFProto-src-0.9.0.6/cpp/src/RCF/include/',])
+                             '../RCFProto-src-0.9.0.6/cpp/src/RCF/include/',
+                             '../'])
 
-env.Append(CXXFLAGS='-std=c++0x -Wall -O2')
-env.Program(target = target, 
-            source = [ sources, proto ],
-            LIBS = LIBS,)
+env.Append(CXXFLAGS='-std=c++0x -Wall -O2 -g',
+           LIBPATH=['../cv'],
+           LIBS=LIBS)
+env.ParseConfig('pkg-config --cflags --libs opencv')
+env.Program(target = target,
+            source = [ sources, proto ])

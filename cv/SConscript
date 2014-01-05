@@ -1,0 +1,14 @@
+# -*-Python-*-
+
+target = 'CV'
+
+sources	 =  [
+    'CV.cc',
+    ]
+
+env = Environment()
+
+env.Append(CXXFLAGS='-std=c++0x -Wall -O2 -g')
+env.ParseConfig('pkg-config --cflags --libs opencv')
+env.Library(target = target,
+            source = sources,)

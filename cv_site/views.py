@@ -25,7 +25,7 @@ def search(request):
         return render_ajax(request, 'validate form failed')
 
     f = request.FILES['image']
-    if f.content_type not in [ 'image/jpeg', 'image/jpg', 'image/bmp' ]:
+    if f.content_type not in [ 'image/jpeg', 'image/jpg', 'image/bmp', 'image/png' ]:
         return render_ajax(request, 'format not supported')
 
     filename = handle_uploaded_file(f)    
@@ -43,7 +43,7 @@ def render_ajax(request, error=None, result=None):
 
 def handle_uploaded_file(f):
     name, ext = os.path.splitext(f.name)
-    filename = BASE_DIR + '/uploads/' + time.time() + '.' +  ext
+    filename = BASE_DIR + '/uploads/' + str(time.time()) + '.' +  ext
     with open(filename, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
