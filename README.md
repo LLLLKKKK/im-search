@@ -20,6 +20,9 @@ Make sure you have these stuff first ...
 ## Build
 
 1. Install protobuf and RCFProto, Scons .. and so on
-2. Start SearchService: scons service/ && ./SearchServer
-3. Start Django: python manager.py runserver
-4. 127.0.0.1:8000, have fun...
+2. Compile, scons cv/ && scons build/ && scons service
+3. Put images in the same folder of build, run build
+4. Copy results to service/
+5. Start server, service/SearchServer
+6. Start Django: python manager.py runserver
+7. 127.0.0.1:8000, have fun...

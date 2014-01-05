@@ -32,6 +32,7 @@ void SearchServiceImpl::printRequest(const SearchRequest *request) {
 }
 
 void SearchServiceImpl::doSearch(const string& imageName, SearchResponse *response) {
+    std::cout << imageName << std::endl;
     Mat matColor;
     Mat matSift;
     colorHist(matColor, imageName);
@@ -42,7 +43,7 @@ void SearchServiceImpl::doSearch(const string& imageName, SearchResponse *respon
     Mat dists;
     clock_t start,end;
     start=clock();   
-    index_->knnSearch(query, indices, dists, 3);
+    index_->knnSearch(query, indices, dists, 10);
     end=clock();
     cout<< (double)(end - start) / CLOCKS_PER_SEC<<endl;
     cout<<indices.at<int>(0,0)<<" index "<<indices.at<int>(0,1)<<endl;
